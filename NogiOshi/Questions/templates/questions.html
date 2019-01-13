@@ -42,6 +42,7 @@
                 <li data-target="#carouselExampleControls" data-slide-to="{{ forloop.counter0 }}"></li>
                 {% endif %}
                 {% endfor %}
+                <li data-target="#carouselExampleControls" data-slide-to="10"></li>
             </ol>
             <div class="carousel-inner">
                 {% for item in color_question_pair %}
@@ -55,12 +56,6 @@
                         <h1>Question #{{ forloop.counter }}</h1>
                         <h2>{{ item.1 }}</h2></br>
                         <div class="btn-group btn-group-toggle" id="q{{ forloop.counter }}" data-toggle="buttons">
-                            <!--label class="btn btn-primary active">
-                                <input type="radio" name="yes_no" id="yes{{ forloop.counter }}" autocomplete="off" value="1"> <h2>Yes</h2>
-                            </label>
-                            <label class="btn btn-primary">
-                                <input type="radio" name="yes_no" id="no{{ forloop.counter }}" autocomplete="off" value="0"> <h2>No</h2>
-                            </label-->
                             <label class="custom-range">
                                 <input type="range" class="custom-range" id="attributeRange{{ forloop.counter }}" min="0" max="100" value="50" step="10" style="width: 400px;"><p>No ⇦ Maybe ⇨ Yes</p>
                             </label>
@@ -147,7 +142,6 @@
                     success: function(data) {
                         console.log("success");
                         $("#modalMessage p").text('Rendering image...');
-                        //window.location.replace('{% url 'show_result' %}');
 
                         $.ajax({
                             url: '{% url 'get_result' %}',
@@ -175,13 +169,12 @@
                     }
                 });
 
-
                 console.log(ml_json_request);
             });
 
             $("#endProceed").click(function() {
-                //$("#idol_img").show();
-                //$("#modalMessage p").remove();
+                $("#idol_img").attr("src", "{% static 'img/loading2.gif' %}");
+                $("#modalMessage p").text("Analyzing...");
             });
         </script>
     </body>
