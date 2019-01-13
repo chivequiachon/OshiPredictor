@@ -96,7 +96,7 @@
                         </button>
                     </div>
                     <div class="modal-body text-center" style="margin: 0 auto;" id="modalMessage">
-                        <img src="{% static 'img/loading2.gif' %}" id="loading_img">
+                        <img src="{% static 'img/loading2.gif' %}" id="idol_img">
                         <p>Analyzing...</p>
                     </div>
                     <div class="modal-footer">
@@ -146,9 +146,31 @@
                     data: JSON.stringify(ml_json_request),
                     success: function(data) {
                         console.log("success");
-                        window.location.replace('{% url 'show_result' %}');
+                        $("#modalMessage p").text('Rendering image...');
+                        //window.location.replace('{% url 'show_result' %}');
+
+                        $.ajax({
+                            url: '{% url 'get_result' %}',
+                            type: 'GET',
+                            contentType: 'application/json',
+                            success: function(data) {
+                                $("#idol_img").attr("src", data['img_url']);
+                                $("#modalMessage p").text("");
+                                $("#modalMessage p").append(
+                                    "<b>"+data['idol_romaji_name']+"<br/>"+
+                                          data['idol_kanji_name']+"<br/>"+
+                                    "("+data['generation']+")</b>"
+                                );
+                                console.log(data)
+                            },
+                            failure: function(data) { 
+                                $("#modalMessage p").text('An error occurred!');
+                                console.log('got an error');
+                            }
+                        });
                     },
                     failure: function(data) {
+                        $("#modalMessage p").text('An error occurred!');
                         console.log("error");
                     }
                 });
@@ -158,8 +180,8 @@
             });
 
             $("#endProceed").click(function() {
-                $("#loading_img").show();
-                $("#modalMessage p").remove();
+                //$("#idol_img").show();
+                //$("#modalMessage p").remove();
             });
         </script>
     </body>
