@@ -90,8 +90,12 @@ SESSION_CACHE_ALIAS = "default"
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'd95lt2mc5s7e39',
+        'USER': 'kjftmfjkarlyyp',
+        'PASSWORD': '22d9869452d5d207289b78ec1bad3d406dd0799a77b1cc6941a582caba9c49de',
+        'HOST': 'ec2-107-22-162-8.compute-1.amazonaws.com',
+        'PORT': '5432',
     }
 }
 
